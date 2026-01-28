@@ -5,10 +5,10 @@
 const express = require("express")
 const app = express()
 
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`)
-  next()
-})
+
+app.use(express.static(__dirname + "/public"))
+
+
 
 
 
@@ -20,12 +20,23 @@ app.use((req, res, next) => {
 
 // Step 4: Create a route handler for the home route
 // Once inside send the file index.html
-
+app.get("/", (req, res) =>{
+  res.sendFile(__dirname + "/public/index.html")
+})
 
 
 // OYO: Create a route handler for /js that sends only the client side javaScript
 // run your server and test your code
 
+
+app.get("/js", (req, res) =>{
+  res.sendFile(__dirname + "/public/bulbasaur.js")
+})
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`)
+  next()
+})
 
 app.listen(3000, () => {
   console.log("Server is serving")
